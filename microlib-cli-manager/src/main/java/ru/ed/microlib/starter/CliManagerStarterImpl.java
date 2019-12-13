@@ -29,11 +29,24 @@ public class CliManagerStarterImpl implements CliManagerStarter {
             System.out.print(BRACKET);
             String line;
             while (!EXIT_CMD.equals(line = bufferedReader.readLine())){
-                commandHandler.handle(line);
+                try {
+                    commandHandler.handle(line);
+                } catch (CommandHandleException e) {
+                    printError(e);
+                }
                 System.out.print(BRACKET);
             }
-        } catch (IOException | CommandHandleException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void printError(Throwable throwable){
+        System.out.println("Error: " + throwable.getMessage());
+        Throwable cause = throwable.getCause();
+        if(cause == null){
+            return;
+        }
+        printError(cause);
     }
 }
