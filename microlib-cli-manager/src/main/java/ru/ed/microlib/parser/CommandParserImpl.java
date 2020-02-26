@@ -2,8 +2,6 @@ package ru.ed.microlib.parser;
 
 import ru.ed.microlib.exception.CommandParseException;
 
-import org.springframework.stereotype.Component;
-
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,7 +10,6 @@ import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Component
 public class CommandParserImpl implements CommandParser {
     private static final String COMMAND_REGEXP = "([a-z]+)\\s*(.*)";
     private static final String ARGUMENTS_REGEXP = "(-[a-z]|--[a-z]+)\\s+(\\S+)";

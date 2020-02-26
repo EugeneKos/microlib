@@ -4,8 +4,6 @@ import ru.ed.microlib.handle.CommandHandler;
 import ru.ed.microlib.handle.CommandHandlerImpl;
 import ru.ed.microlib.parser.CommandParser;
 import ru.ed.microlib.parser.CommandParserImpl;
-import ru.ed.microlib.provider.CommandProvider;
-import ru.ed.microlib.provider.DefaultCommandProvider;
 import ru.ed.microlib.starter.CliManagerStarter;
 import ru.ed.microlib.starter.CliManagerStarterImpl;
 import ru.ed.microlib.storage.CommandStorage;
@@ -13,24 +11,21 @@ import ru.ed.microlib.storage.CommandStorageImpl;
 import ru.ed.microlib.validate.CommandValidator;
 import ru.ed.microlib.validate.CommandValidatorImpl;
 
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class CliManagerContext {
+@ComponentScan({"ru.ed.microlib.context.listener"})
+public class CliManagerApplicationContext {
     @Bean
     public CommandParser commandParser(){
         return new CommandParserImpl();
     }
 
     @Bean
-    public CommandProvider commandProvider(){
-        return new DefaultCommandProvider();
-    }
-
-    @Bean
-    public CommandStorage commandStorage(CommandProvider commandProvider){
-        return new CommandStorageImpl(commandProvider);
+    public CommandStorage commandStorage(){
+        return new CommandStorageImpl();
     }
 
     @Bean
