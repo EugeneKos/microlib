@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class CliManagerStarterImpl implements CliManagerStarter {
+    private static final String GREETING = "cli-manager-app-v.1.0";
     private static final String EXIT_CMD = "exit";
     private static final String BRACKET = ">";
 
@@ -18,8 +19,8 @@ public class CliManagerStarterImpl implements CliManagerStarter {
     }
 
     @Override
-    public void start(String greeting) {
-        System.out.println(greeting);
+    public void start() {
+        System.out.println(GREETING);
         try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in))) {
             System.out.print(BRACKET);
             String line;
