@@ -4,6 +4,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.List;
+import java.util.Map;
 
 public class RestClientApp {
     public static void main(String[] args) {
@@ -40,6 +42,11 @@ public class RestClientApp {
 
             while (inputStream.read(buffer) != -1){
                 System.out.println(new String(buffer));
+            }
+
+            Map<String, List<String>> headerFields = urlConnection.getHeaderFields();
+            for (Map.Entry<String, List<String>> entry : headerFields.entrySet()){
+                System.out.println(entry.getKey() + " : " + entry.getValue());
             }
 
         } catch (Exception e) {
