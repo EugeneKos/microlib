@@ -2,6 +2,7 @@ package ru.ed.microlib;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
@@ -9,9 +10,9 @@ import java.util.Map;
 
 public class RestClientApp {
     public static void main(String[] args) {
-        //for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
             new Thread(new Connection()).start();
-        //}
+        }
     }
 
     private static class Connection implements Runnable{
@@ -24,17 +25,19 @@ public class RestClientApp {
 
     private static void connect(){
         try {
-            URL url = new URL("http://192.168.0.106:8080/app-market-web/auth");
+            URL url = new URL("http://192.168.0.106:8080/app-market-web/t2/2");
 
-            URLConnection urlConnection = url.openConnection();
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
             urlConnection.setRequestProperty("Accept-Charset", "utf-8");
             urlConnection.setRequestProperty("Content-Type", "application/json");
 
+            /*urlConnection.setRequestMethod("PUT");
+
             urlConnection.setDoOutput(true);
             OutputStream outputStream = urlConnection.getOutputStream();
-            String body = "{\"username\":\"baran\", \"password\":\"baran\"}";
-            outputStream.write(body.getBytes("utf-8"));
+            String body = "{\"accountId\":\"14\", \"amount\":\"100\", \"description\":\"test\"}";
+            outputStream.write(body.getBytes("utf-8"));*/
 
             InputStream inputStream = urlConnection.getInputStream();
 
