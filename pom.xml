@@ -7,7 +7,7 @@
     <groupId>ru.ed.microlib</groupId>
     <artifactId>microlib</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <modules>
         <module>microlib-cli-manager</module>
