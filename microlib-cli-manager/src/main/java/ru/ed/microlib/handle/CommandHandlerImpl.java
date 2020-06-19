@@ -9,15 +9,10 @@ import ru.ed.microlib.parser.CommandParser;
 import ru.ed.microlib.validate.CommandValidator;
 import ru.ed.microlib.validate.ValidateDetail;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-@Component
 public class CommandHandlerImpl implements CommandHandler {
     private CommandParser commandParser;
     private CommandValidator commandValidator;
 
-    @Autowired
     public CommandHandlerImpl(CommandParser commandParser, CommandValidator commandValidator) {
         this.commandParser = commandParser;
         this.commandValidator = commandValidator;

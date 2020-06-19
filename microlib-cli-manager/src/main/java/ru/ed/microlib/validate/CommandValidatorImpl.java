@@ -6,17 +6,12 @@ import ru.ed.microlib.exception.CommandValidateException;
 import ru.ed.microlib.parser.CommandDetail;
 import ru.ed.microlib.storage.CommandStorage;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import java.util.HashMap;
 import java.util.Map;
 
-@Component
 public class CommandValidatorImpl implements CommandValidator {
     private CommandStorage commandStorage;
 
-    @Autowired
     public CommandValidatorImpl(CommandStorage commandStorage) {
         this.commandStorage = commandStorage;
     }
