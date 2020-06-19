@@ -11,7 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class CommandParserImpl implements CommandParser {
-    private static final String COMMAND_REGEXP = "([a-z]+)\\s*(.*)";
+    private static final String COMMAND_REGEXP = "([a-z\\-]+)\\s*(.*)";
     private static final String ARGUMENTS_REGEXP = "(-[a-z]|--[a-z]+)\\s+(\\S+)";
 
     @Override
