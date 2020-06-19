@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 public class CliManagerStarterImpl implements CliManagerStarter {
     private static final String GREETING = "cli-manager-app-v.1.0";
     private static final String EXIT_CMD = "exit";
+    private static final String EMPTY_CMD = "";
     private static final String BRACKET = ">";
 
     private CommandHandler commandHandler;
@@ -25,10 +26,12 @@ public class CliManagerStarterImpl implements CliManagerStarter {
             System.out.print(BRACKET);
             String line;
             while (!EXIT_CMD.equals(line = bufferedReader.readLine())){
-                try {
-                    commandHandler.handle(line);
-                } catch (CommandHandleException e) {
-                    printError(e);
+                if(!EMPTY_CMD.equals(line)){
+                    try {
+                        commandHandler.handle(line);
+                    } catch (CommandHandleException e) {
+                        printError(e);
+                    }
                 }
                 System.out.print(BRACKET);
             }
