@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 
 public class CommandParserImpl implements CommandParser {
     private static final String COMMAND_REGEXP = "([a-z\\-]+)\\s*(.*)";
-    private static final String KEY_ARGUMENT_REGEXP = "-[a-z]|--[a-z]+";
+    private static final String KEY_ARGUMENT_REGEXP = "-[a-z]+|--[a-zA-Z]+";
     private static final String SPACE_REGEXP = "\\s";
 
     @Override
