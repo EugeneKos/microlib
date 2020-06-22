@@ -2,8 +2,8 @@ package ru.ed.microlib.parser;
 
 import ru.ed.microlib.exception.CommandParseException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -12,7 +12,8 @@ import java.util.regex.Pattern;
 
 public class CommandParserImpl implements CommandParser {
     private static final String COMMAND_REGEXP = "([a-z\\-]+)\\s*(.*)";
-    private static final String ARGUMENTS_REGEXP = "(-[a-z]|--[a-z]+)\\s+(\\S+)";
+    private static final String KEY_ARGUMENT_REGEXP = "-[a-z]|--[a-z]+";
+    private static final String SPACE_REGEXP = "\\s";
 
     @Override
     public CommandDetail parse(String command) throws CommandParseException {
@@ -24,9 +25,7 @@ public class CommandParserImpl implements CommandParser {
         String commandName = commandKeys.getCommand();
         String commandArgs = commandKeys.getKeysAndArguments();
 
-        List<KeyArgument> keyArguments = parseItem(
-                ARGUMENTS_REGEXP, commandArgs, this::getKeysAndArguments
-        );
+        List<KeyArgument> keyArguments = getKeysAndArguments(commandArgs.split(SPACE_REGEXP));
 
         return getDetail(commandName, keyArguments);
     }
@@ -52,11 +51,29 @@ public class CommandParserImpl implements CommandParser {
         return null;
     }
 
-    private List<KeyArgument> getKeysAndArguments(Matcher matcher){
-        List<KeyArgument> keyArguments = new LinkedList<>();
-        while (matcher.find()){
-            keyArguments.add(new KeyArgument(matcher.group(1), matcher.group(2)));
+    private List<KeyArgument> getKeysAndArguments(String[] keysArguments){
+        List<KeyArgument> keyArguments = new ArrayList<>();
+        if(keysArguments.length == 0){
+            return keyArguments;
         }
+
+        int currentIndex = 0;
+
+        while (currentIndex < keysArguments.length){
+            if(keysArguments[currentIndex].matches(KEY_ARGUMENT_REGEXP)){
+                String key = keysArguments[currentIndex];
+                StringBuilder valueBuilder = new StringBuilder();
+                currentIndex ++;
+                while (currentIndex < keysArguments.length && !keysArguments[currentIndex].matches(KEY_ARGUMENT_REGEXP)){
+                    valueBuilder.append(keysArguments[currentIndex]).append(" ");
+                    currentIndex ++;
+                }
+                keyArguments.add(new KeyArgument(key, valueBuilder.substring(0, valueBuilder.length() - 1)));
+            } else {
+                currentIndex ++;
+            }
+        }
+
         return keyArguments;
     }
 

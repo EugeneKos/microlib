@@ -41,4 +41,21 @@ public class CommandParserTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void parseWithArgumentsTest_1(){
+        try {
+            CommandDetail commandDetail = commandParser.parse("create -n Имя    имя -d Описание описание");
+
+            Assert.assertNotNull(commandDetail);
+            Assert.assertEquals("create", commandDetail.getCommandName());
+
+            Map<String, String> commandArguments = commandDetail.getCommandArguments();
+            Assert.assertEquals("Имя    имя", commandArguments.get("-n"));
+            Assert.assertEquals("Описание описание", commandArguments.get("-d"));
+
+        } catch (CommandParseException e) {
+            e.printStackTrace();
+        }
+    }
 }
