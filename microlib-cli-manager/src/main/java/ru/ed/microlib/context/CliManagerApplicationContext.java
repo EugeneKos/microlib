@@ -39,7 +39,7 @@ public class CliManagerApplicationContext {
     }
 
     @Bean
-    public CliManagerStarter cliManagerStarter(CommandHandler commandHandler){
-        return new CliManagerStarterImpl(commandHandler);
+    public CliManagerStarter cliManagerStarter(CommandHandler commandHandler, CommandStorage commandStorage){
+        return new CliManagerStarterImpl(commandHandler, commandStorage);
     }
 }
