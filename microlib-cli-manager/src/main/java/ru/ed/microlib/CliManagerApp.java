@@ -8,20 +8,20 @@ import ru.ed.microlib.context.CliManagerApplicationContext;
 import ru.ed.microlib.starter.CliManagerStarter;
 
 public class CliManagerApp {
-    public static void cliStart(){
-        cliStart(new AnnotationConfigApplicationContext(CliManagerApplicationContext.class));
+    public static void cliStart(String greeting){
+        cliStart(new AnnotationConfigApplicationContext(CliManagerApplicationContext.class), greeting);
     }
 
-    public static void cliStart(String springContextXmlFileName){
-        cliStart(new ClassPathXmlApplicationContext(springContextXmlFileName));
+    public static void cliStart(String springContextXmlFileName, String greeting){
+        cliStart(new ClassPathXmlApplicationContext(springContextXmlFileName), greeting);
     }
 
-    public static void cliStart(Class<?> springContextClass){
-        cliStart(new AnnotationConfigApplicationContext(springContextClass));
+    public static void cliStart(Class<?> springContextClass, String greeting){
+        cliStart(new AnnotationConfigApplicationContext(springContextClass), greeting);
     }
 
-    private static void cliStart(ApplicationContext applicationContext){
+    private static void cliStart(ApplicationContext applicationContext, String greeting){
         CliManagerStarter cliManagerStarter = applicationContext.getBean(CliManagerStarter.class);
-        cliManagerStarter.start();
+        cliManagerStarter.start(greeting);
     }
 }
