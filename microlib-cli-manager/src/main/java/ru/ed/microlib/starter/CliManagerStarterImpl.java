@@ -1,5 +1,6 @@
 package ru.ed.microlib.starter;
 
+import ru.ed.microlib.command.Argument;
 import ru.ed.microlib.command.Command;
 import ru.ed.microlib.exception.CommandHandleException;
 import ru.ed.microlib.handle.CommandHandler;
@@ -59,7 +60,25 @@ public class CliManagerStarterImpl implements CliManagerStarter {
 
     private void printAllCommand(Collection<Command> commands){
         for (Command command : commands){
-            System.out.println(String.format("%s [%s]", command.getName(), command.getDescription()));
+            System.out.println(String.format(
+                    "%s [%s] [%s]", command.getName(), command.getDescription(), getArgumentsStrForPrint(command.getArguments())
+            ));
         }
+    }
+
+    private String getArgumentsStrForPrint(Argument[] arguments){
+        StringBuilder builder = new StringBuilder();
+
+        if(arguments == null || arguments.length == 0){
+            return builder.toString();
+        }
+
+        for (Argument argument : arguments){
+            builder.append("{").append(argument.getShortKey()).append(" ")
+                    .append(argument.getLongKey()).append(" ")
+                    .append(argument.isMandatory()).append("}, ");
+        }
+
+        return builder.substring(0, builder.length() - 2);
     }
 }
